@@ -1,23 +1,20 @@
-# Build Stage
-FROM golang:1.17 AS build-stage
+FROM golang:1.19 as builder
+ENV GOPATH /gopath/
+ENV PATH $GOPATH/bin/$PATH
 
-WORKDIR /app
+RUN go version
+RUN  go env -w GOPROXY=https://goproxy.io,direct
+RUN  go env -w GO111MODULE=on
 
-RUN go env -w GO111MODULE=on && go env -w GOPROXY="https://goproxy.cn,direct"
-
-COPY . .
+COPY . /go/src/fake_metrics/
+WORKDIR /go/src/fake_metrics/
 
 RUN make build
 
-# Runtime Stage
-FROM alpine:3
-COPY --from=build-stage /app/bin/fake-matrics /app/fake-matrics
-COPY ./static /app/static
+FROM k8s.gcr.io/debian-base:v2.0.0
 
-ENV GIN_MODE=release
+COPY --from=builder /go/src/fake_metrics /
+COPY --from=builder /go/src/fake_metrics/static /static
 
-
-WORKDIR /app
-EXPOSE 8080
-
-ENTRYPOINT ["/app/fake-matrics"]
+EXPOSE      8080
+ENTRYPOINT  [ "/fake-metrics" ]
