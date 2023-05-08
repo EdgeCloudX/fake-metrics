@@ -17,4 +17,4 @@ COPY --from=builder /go/src/fake_metrics /
 COPY --from=builder /go/src/fake_metrics/static /static
 
 EXPOSE      8080
-ENTRYPOINT  [ "/fake-metrics" ]
+ENTRYPOINT  [ "/fake_metrics" ]

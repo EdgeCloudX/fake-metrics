@@ -17,11 +17,12 @@ spec:
     spec:
       containers:
         - name: fake-metrics
-          image: tjldockerdemo/fake-metrics
+          image: tjldockerdemo/fake-metrics:latest
           ports:
             - name: metrics
               containerPort: 8080
               protocol: TCP
+          imagePullPolicy: IfNotPresent
 ---
 apiVersion: v1
 kind: Service

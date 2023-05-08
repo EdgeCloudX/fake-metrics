@@ -15,4 +15,4 @@ package:
 	#docker buildx build  --platform=linux/arm64,linux/amd64 -t $(IMAGE) --push.
 
 build: $(PKG_SOURCES)
-	CGO_ENABLED=$(CGO_ENABLED) GOOS=linux GO111MODULE=on go build  -o blackbox_exporter
+	CGO_ENABLED=$(CGO_ENABLED) GOOS=linux GO111MODULE=on go build  -o fake_metrics
