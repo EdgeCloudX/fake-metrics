@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: fake-metrics
-          image: tjldockerdemo/fake-metrics:latest
+          image: cloudx2021/fake_metrics:1.0.1
           ports:
             - name: metrics
               containerPort: 8080
