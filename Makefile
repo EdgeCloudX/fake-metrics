@@ -1,10 +1,3 @@
-build: clean
-	go mod vendor
-	docker build -t fake-metrics:0.5 .
-	@rm -rf vendor
-
-clean:
-	@rm -rf vendor
 CGO_ENABLED:=0
 DOCKER_PLATFORMS=linux/arm64,linux/amd64
 REGISTRY?=cloudx2021
